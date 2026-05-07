@@ -4,25 +4,20 @@ import java.util.List;
 
 public class Playlist {
 
+    private Long id;
     private String name;
     private boolean isPublic;
+    private User user;
     private List<Song> songs;
 
-    public Playlist(String name, boolean isPublic, List<Song> songs) {
-        this.name = name;
-        this.isPublic = isPublic;
-        this.songs = songs;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    public List<Song> getSongs() {
-        return songs;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public boolean isPublic() { return isPublic; }
+    public void setPublic(boolean isPublic) { this.isPublic = isPublic; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    public List<Song> getSongs() { return songs; }
+    public void setSongs(List<Song> songs) { this.songs = songs; }
 }
