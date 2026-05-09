@@ -12,7 +12,6 @@ public class User {
     private boolean isPremium;
     private LocalDate registrationDate;
     private LocalDateTime lastLogin;
-    private MusicService musicService;
     private List<Playlist> playlists;
     private List<Subscription> subscriptions;
     private List<PaymentMethod> paymentMethods;
@@ -63,14 +62,6 @@ public class User {
 
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
-    }
-
-    public MusicService getMusicService() {
-        return musicService;
-    }
-
-    public void setMusicService(MusicService musicService) {
-        this.musicService = musicService;
     }
 
     public List<Playlist> getPlaylists() {
