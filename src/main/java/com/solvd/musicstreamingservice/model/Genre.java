@@ -5,7 +5,6 @@ public class Genre {
     private Long id;
     private String name;
     private String description;
-    private MusicService musicService;
 
     public Long getId() {
         return id;
@@ -30,13 +29,4 @@ public class Genre {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public MusicService getMusicService() {
-        return musicService;
-    }
-
-    public void setMusicService(MusicService musicService) {
-        this.musicService = musicService;
-    }
-
 }

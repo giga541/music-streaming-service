@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 public class StreamHistory {
 
     private Long id;
-    private Song song;
-    private User user;
     private LocalDateTime playedAt;
     private double listenedSeconds;
 
@@ -16,22 +14,6 @@ public class StreamHistory {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Song getSong() {
-        return song;
-    }
-
-    public void setSong(Song song) {
-        this.song = song;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public LocalDateTime getPlayedAt() {

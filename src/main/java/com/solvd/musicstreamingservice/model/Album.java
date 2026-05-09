@@ -1,13 +1,14 @@
 package com.solvd.musicstreamingservice.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Album {
 
     private Long id;
     private String title;
     private LocalDate releaseDate;
-    private Artist artist;
+    private List<Song> songs;
 
     public Long getId() {
         return id;
@@ -33,11 +34,11 @@ public class Album {
         this.releaseDate = releaseDate;
     }
 
-    public Artist getArtist() {
-        return artist;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }

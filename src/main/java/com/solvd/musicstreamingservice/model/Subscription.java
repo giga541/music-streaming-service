@@ -9,7 +9,6 @@ public class Subscription {
     private double pricePerMonth;
     private LocalDate startDate;
     private LocalDate endDate;
-    private User user;
 
     public Long getId() {
         return id;
@@ -49,13 +48,5 @@ public class Subscription {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

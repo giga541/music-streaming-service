@@ -4,9 +4,8 @@ public class PaymentMethod {
 
     private Long id;
     private String type;
-    private String lastFour;
+    private String lastFourNumber;
     private boolean isDefault;
-    private User user;
 
     public Long getId() {
         return id;
@@ -24,12 +23,12 @@ public class PaymentMethod {
         this.type = type;
     }
 
-    public String getLastFour() {
-        return lastFour;
+    public String getLastFourNumber() {
+        return lastFourNumber;
     }
 
-    public void setLastFour(String lastFour) {
-        this.lastFour = lastFour;
+    public void setLastFourNumber(String lastFourNumber) {
+        this.lastFourNumber = lastFourNumber;
     }
 
     public boolean isDefault() {
@@ -38,13 +37,5 @@ public class PaymentMethod {
 
     public void setDefault(boolean isDefault) {
         this.isDefault = isDefault;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

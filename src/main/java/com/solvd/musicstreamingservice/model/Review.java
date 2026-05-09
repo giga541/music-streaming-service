@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 public class Review {
 
     private Long id;
-    private User user;
-    private Song song;
     private int rating;
     private String comment;
     private LocalDateTime createdAt;
@@ -17,22 +15,6 @@ public class Review {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Song getSong() {
-        return song;
-    }
-
-    public void setSong(Song song) {
-        this.song = song;
     }
 
     public int getRating() {

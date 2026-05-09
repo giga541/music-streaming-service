@@ -2,6 +2,7 @@ package com.solvd.musicstreamingservice.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class User {
 
@@ -12,6 +13,9 @@ public class User {
     private LocalDate registrationDate;
     private LocalDateTime lastLogin;
     private MusicService musicService;
+    private List<Playlist> playlists;
+    private List<Subscription> subscriptions;
+    private List<PaymentMethod> paymentMethods;
 
     public Long getId() {
         return id;
@@ -68,4 +72,29 @@ public class User {
     public void setMusicService(MusicService musicService) {
         this.musicService = musicService;
     }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<PaymentMethod> getPaymentMethods() {
+        return paymentMethods;
+    }
+
+    public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+        this.paymentMethods = paymentMethods;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.solvd.musicstreamingservice.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Song {
 
@@ -8,9 +9,9 @@ public class Song {
     private String title;
     private double durationSeconds;
     private LocalDate releaseDate;
-    private Artist artist;
-    private Album album;
     private Genre genre;
+    private List<Review> reviews;
+    private List<StreamHistory> streamHistories;
 
     public Long getId() {
         return id;
@@ -44,22 +45,6 @@ public class Song {
         this.releaseDate = releaseDate;
     }
 
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
-
     public Genre getGenre() {
         return genre;
     }
@@ -67,4 +52,21 @@ public class Song {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<StreamHistory> getStreamHistories() {
+        return streamHistories;
+    }
+
+    public void setStreamHistories(List<StreamHistory> streamHistories) {
+        this.streamHistories = streamHistories;
+    }
+
 }

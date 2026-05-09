@@ -1,11 +1,13 @@
 package com.solvd.musicstreamingservice.model;
 
+import java.util.List;
+
 public class Artist {
 
     private Long id;
     private String name;
     private String country;
-    private MusicService musicService;
+    private List<Album> albums;
 
     public Long getId() {
         return id;
@@ -31,12 +33,11 @@ public class Artist {
         this.country = country;
     }
 
-    public MusicService getMusicService() {
-        return musicService;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setMusicService(MusicService musicService) {
-        this.musicService = musicService;
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
     }
-
 }

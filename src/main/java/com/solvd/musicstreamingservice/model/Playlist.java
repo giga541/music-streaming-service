@@ -7,7 +7,7 @@ public class Playlist {
     private Long id;
     private String name;
     private boolean isPublic;
-    private User user;
+    private List<Song> songs;
 
     public Long getId() {
         return id;
@@ -33,11 +33,11 @@ public class Playlist {
         this.isPublic = isPublic;
     }
 
-    public User getUser() {
-        return user;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }
