@@ -9,7 +9,7 @@ public class User {
     private Long id;
     private String username;
     private String email;
-    private boolean isPremium;
+    private boolean premium;
     private LocalDate registrationDate;
     private LocalDateTime lastLogin;
     private List<Playlist> playlists;
@@ -40,12 +40,12 @@ public class User {
         this.email = email;
     }
 
-    public boolean isPremium() {
-        return isPremium;
+    public boolean premium() {
+        return premium;
     }
 
-    public void setPremium(boolean isPremium) {
-        this.isPremium = isPremium;
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     public LocalDate getRegistrationDate() {

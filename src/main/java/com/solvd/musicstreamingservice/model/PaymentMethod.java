@@ -5,7 +5,7 @@ public class PaymentMethod {
     private Long id;
     private String type;
     private String lastFourNumber;
-    private boolean isDefault;
+    private boolean defaultMethod;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class PaymentMethod {
         this.lastFourNumber = lastFourNumber;
     }
 
-    public boolean isDefault() {
-        return isDefault;
+    public boolean defaultMethod() {
+        return defaultMethod;
     }
 
-    public void setDefault(boolean isDefault) {
-        this.isDefault = isDefault;
+    public void setDefaultMethod(boolean defaultMethod) {
+        this.defaultMethod = defaultMethod;
     }
 }

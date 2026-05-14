@@ -6,7 +6,7 @@ public class Playlist {
 
     private Long id;
     private String name;
-    private boolean isPublic;
+    private boolean open;
     private List<Song> songs;
 
     public Long getId() {
@@ -25,12 +25,12 @@ public class Playlist {
         this.name = name;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public boolean open() {
+        return open;
     }
 
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     public List<Song> getSongs() {
