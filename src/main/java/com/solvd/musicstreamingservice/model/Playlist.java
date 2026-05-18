@@ -7,6 +7,7 @@ public class Playlist {
     private Long id;
     private String name;
     private boolean open;
+    private Long userId;
     private List<Song> songs;
 
     public Long getId() {
@@ -25,12 +26,20 @@ public class Playlist {
         this.name = name;
     }
 
-    public boolean open() {
+    public boolean isOpen() {
         return open;
     }
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public List<Song> getSongs() {

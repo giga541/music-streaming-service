@@ -8,6 +8,7 @@ public class Review {
     private int rating;
     private String comment;
     private LocalDateTime createdAt;
+    private Long songId;
 
     public Long getId() {
         return id;
@@ -39,5 +40,13 @@ public class Review {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Long songId) {
+        this.songId = songId;
     }
 }

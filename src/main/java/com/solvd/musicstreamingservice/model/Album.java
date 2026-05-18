@@ -8,6 +8,7 @@ public class Album {
     private Long id;
     private String title;
     private LocalDate releaseDate;
+    private Long artistId;
     private List<Song> songs;
 
     public Long getId() {
@@ -32,6 +33,14 @@ public class Album {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 
     public List<Song> getSongs() {

@@ -9,6 +9,10 @@ public class Song {
     private String title;
     private double durationSeconds;
     private LocalDate releaseDate;
+    private Long albumId;
+    private Long genreId;
+    private Album album;
+    private Artist artist;
     private Genre genre;
     private List<Review> reviews;
     private List<StreamHistory> streamHistories;
@@ -45,6 +49,38 @@ public class Song {
         this.releaseDate = releaseDate;
     }
 
+    public Long getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Long albumId) {
+        this.albumId = albumId;
+    }
+
+    public Long getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(Long genreId) {
+        this.genreId = genreId;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     public Genre getGenre() {
         return genre;
     }
@@ -68,5 +104,4 @@ public class Song {
     public void setStreamHistories(List<StreamHistory> streamHistories) {
         this.streamHistories = streamHistories;
     }
-
 }

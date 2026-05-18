@@ -12,6 +12,7 @@ public class User {
     private boolean premium;
     private LocalDate registrationDate;
     private LocalDateTime lastLogin;
+    private Long musicServiceId;
     private List<Playlist> playlists;
     private List<Subscription> subscriptions;
     private List<PaymentMethod> paymentMethods;
@@ -64,6 +65,14 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
+    public Long getMusicServiceId() {
+        return musicServiceId;
+    }
+
+    public void setMusicServiceId(Long musicServiceId) {
+        this.musicServiceId = musicServiceId;
+    }
+
     public List<Playlist> getPlaylists() {
         return playlists;
     }
@@ -87,5 +96,4 @@ public class User {
     public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
         this.paymentMethods = paymentMethods;
     }
-
 }

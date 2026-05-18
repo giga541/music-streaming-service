@@ -3,9 +3,10 @@ package com.solvd.musicstreamingservice.model;
 public class PaymentMethod {
 
     private Long id;
-    private String type;
-    private String lastFourNumber;
+    private String paymentType;
+    private String lastFour;
     private boolean defaultMethod;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -15,27 +16,35 @@ public class PaymentMethod {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
-    public String getLastFourNumber() {
-        return lastFourNumber;
+    public String getLastFour() {
+        return lastFour;
     }
 
-    public void setLastFourNumber(String lastFourNumber) {
-        this.lastFourNumber = lastFourNumber;
+    public void setLastFour(String lastFour) {
+        this.lastFour = lastFour;
     }
 
-    public boolean defaultMethod() {
+    public boolean isDefaultMethod() {
         return defaultMethod;
     }
 
     public void setDefaultMethod(boolean defaultMethod) {
         this.defaultMethod = defaultMethod;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

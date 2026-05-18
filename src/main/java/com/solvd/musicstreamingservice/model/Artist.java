@@ -7,6 +7,7 @@ public class Artist {
     private Long id;
     private String name;
     private String country;
+    private Long musicServiceId;
     private List<Album> albums;
 
     public Long getId() {
@@ -31,6 +32,14 @@ public class Artist {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Long getMusicServiceId() {
+        return musicServiceId;
+    }
+
+    public void setMusicServiceId(Long musicServiceId) {
+        this.musicServiceId = musicServiceId;
     }
 
     public List<Album> getAlbums() {

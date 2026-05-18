@@ -7,6 +7,7 @@ public class StreamHistory {
     private Long id;
     private LocalDateTime playedAt;
     private double listenedSeconds;
+    private Long songId;
 
     public Long getId() {
         return id;
@@ -30,5 +31,13 @@ public class StreamHistory {
 
     public void setListenedSeconds(double listenedSeconds) {
         this.listenedSeconds = listenedSeconds;
+    }
+
+    public Long getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Long songId) {
+        this.songId = songId;
     }
 }
