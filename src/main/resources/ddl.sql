@@ -15,33 +15,13 @@ CREATE SCHEMA IF NOT EXISTS `music_streaming_service_db` DEFAULT CHARACTER SET u
 USE `music_streaming_service_db` ;
 
 -- -----------------------------------------------------
--- Table `music_streaming_service_db`.`music_services`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`music_services` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `country` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `music_streaming_service_db`.`artists`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`artists` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
   `country` VARCHAR(100) NULL DEFAULT NULL,
-  `music_service_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_artists_music_services1_idx` (`music_service_id` ASC) VISIBLE,
-  CONSTRAINT `fk_artists_music_services1`
-    FOREIGN KEY (`music_service_id`)
-    REFERENCES `music_streaming_service_db`.`music_services` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -54,15 +34,14 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`albums` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(200) NOT NULL,
   `release_date` DATE NULL DEFAULT NULL,
-  `artist_id` BIGINT NOT NULL,
+  `artist_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_albums_artists1_idx` (`artist_id` ASC) VISIBLE,
-  CONSTRAINT `fk_albums_artists1`
+  INDEX `artist_id` (`artist_id` ASC) VISIBLE,
+  CONSTRAINT `albums_ibfk_1`
     FOREIGN KEY (`artist_id`)
-    REFERENCES `music_streaming_service_db`.`artists` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`artists` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -76,6 +55,21 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`genres` (
   `description` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `music_streaming_service_db`.`music_services`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`music_services` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `country` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -90,15 +84,8 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`users` (
   `is_premium` TINYINT(1) NULL DEFAULT '0',
   `registration_date` DATE NULL DEFAULT NULL,
   `last_login` DATETIME NULL DEFAULT NULL,
-  `music_service_id` BIGINT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email` (`email` ASC) VISIBLE,
-  INDEX `fk_users_music_services1_idx` (`music_service_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_music_services1`
-    FOREIGN KEY (`music_service_id`)
-    REFERENCES `music_streaming_service_db`.`music_services` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -112,14 +99,12 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`payment_methods` (
   `type` VARCHAR(50) NULL DEFAULT NULL,
   `last_four` VARCHAR(4) NULL DEFAULT NULL,
   `is_default` TINYINT(1) NULL DEFAULT '0',
-  `user_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_payment_methods_users1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_payment_methods_users1`
+  `user_id` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `payment_methods_ibfk_1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `music_streaming_service_db`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -132,14 +117,12 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`playlists` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
   `is_public` TINYINT(1) NULL DEFAULT '1',
-  `user_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_playlists_users1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_playlists_users1`
+  `user_id` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `playlists_ibfk_1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `music_streaming_service_db`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -153,28 +136,22 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`songs` (
   `title` VARCHAR(200) NOT NULL,
   `duration_seconds` DOUBLE NULL DEFAULT NULL,
   `release_date` DATE NULL DEFAULT NULL,
-  `album_id` BIGINT NOT NULL,
-  `genre_id` BIGINT NOT NULL,
-  `playlist_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `playlist_id`),
-  INDEX `fk_songs_albums1_idx` (`album_id` ASC) VISIBLE,
-  INDEX `fk_songs_genres1_idx` (`genre_id` ASC) VISIBLE,
-  INDEX `fk_songs_playlists1_idx` (`playlist_id` ASC) VISIBLE,
-  CONSTRAINT `fk_songs_albums1`
+  `artist_id` BIGINT NULL DEFAULT NULL,
+  `album_id` BIGINT NULL DEFAULT NULL,
+  `genre_id` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `artist_id` (`artist_id` ASC) VISIBLE,
+  INDEX `album_id` (`album_id` ASC) VISIBLE,
+  INDEX `genre_id` (`genre_id` ASC) VISIBLE,
+  CONSTRAINT `songs_ibfk_1`
+    FOREIGN KEY (`artist_id`)
+    REFERENCES `music_streaming_service_db`.`artists` (`id`),
+  CONSTRAINT `songs_ibfk_2`
     FOREIGN KEY (`album_id`)
-    REFERENCES `music_streaming_service_db`.`albums` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_songs_genres1`
+    REFERENCES `music_streaming_service_db`.`albums` (`id`),
+  CONSTRAINT `songs_ibfk_3`
     FOREIGN KEY (`genre_id`)
-    REFERENCES `music_streaming_service_db`.`genres` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_songs_playlists1`
-    FOREIGN KEY (`playlist_id`)
-    REFERENCES `music_streaming_service_db`.`playlists` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`genres` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -185,18 +162,22 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`reviews` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NULL DEFAULT NULL,
+  `song_id` BIGINT NULL DEFAULT NULL,
   `rating` INT NULL DEFAULT NULL,
   `comment` TEXT NULL DEFAULT NULL,
   `created_at` DATETIME NULL DEFAULT NULL,
-  `song_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `song_id`),
-  INDEX `fk_reviews_songs1_idx` (`song_id` ASC) VISIBLE,
-  CONSTRAINT `fk_reviews_songs1`
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  INDEX `song_id` (`song_id` ASC) VISIBLE,
+  CONSTRAINT `reviews_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `music_streaming_service_db`.`users` (`id`),
+  CONSTRAINT `reviews_ibfk_2`
     FOREIGN KEY (`song_id`)
-    REFERENCES `music_streaming_service_db`.`songs` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`songs` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -206,16 +187,19 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`stream_history` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NULL DEFAULT NULL,
+  `song_id` BIGINT NULL DEFAULT NULL,
   `played_at` DATETIME NULL DEFAULT NULL,
   `listened_seconds` DOUBLE NULL DEFAULT NULL,
-  `song_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `song_id`),
-  INDEX `fk_stream_history_songs1_idx` (`song_id` ASC) VISIBLE,
-  CONSTRAINT `fk_stream_history_songs1`
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  INDEX `song_id` (`song_id` ASC) VISIBLE,
+  CONSTRAINT `stream_history_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `music_streaming_service_db`.`users` (`id`),
+  CONSTRAINT `stream_history_ibfk_2`
     FOREIGN KEY (`song_id`)
-    REFERENCES `music_streaming_service_db`.`songs` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`songs` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -230,15 +214,14 @@ CREATE TABLE IF NOT EXISTS `music_streaming_service_db`.`subscriptions` (
   `price_per_month` DOUBLE NULL DEFAULT NULL,
   `start_date` DATE NULL DEFAULT NULL,
   `end_date` DATE NULL DEFAULT NULL,
-  `user_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
-  INDEX `fk_subscriptions_users1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_subscriptions_users1`
+  `user_id` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `subscriptions_ibfk_1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `music_streaming_service_db`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `music_streaming_service_db`.`users` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
