@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="config.properties"/>
+
+    <typeAliases>
+        <typeAlias type="com.solvd.musicstreamingservice.model.MusicService" alias="MusicService"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.User" alias="User"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Artist" alias="Artist"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Album" alias="Album"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Genre" alias="Genre"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Song" alias="Song"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Playlist" alias="Playlist"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Subscription" alias="Subscription"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.PaymentMethod" alias="PaymentMethod"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.Review" alias="Review"/>
+        <typeAlias type="com.solvd.musicstreamingservice.model.StreamHistory" alias="StreamHistory"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/ArtistMapper.xml"/>
+        <mapper resource="mapper/AlbumMapper.xml"/>
+        <mapper resource="mapper/GenreMapper.xml"/>
+        <mapper resource="mapper/SongMapper.xml"/>
+        <mapper resource="mapper/PlaylistMapper.xml"/>
+        <mapper resource="mapper/ReviewMapper.xml"/>
+    </mappers>
+</configuration>

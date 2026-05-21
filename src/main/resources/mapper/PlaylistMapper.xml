@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.musicstreamingservice.persistence.PlaylistRepository">
+
+    <resultMap id="playlistResultMap" type="Playlist">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="open" column="open"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO playlists (name, open, user_id)
+        VALUES (#{name}, #{open}, #{userId})
+    </insert>
+
+    <select id="findById" resultMap="playlistResultMap">
+        SELECT * FROM playlists WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="playlistResultMap">
+        SELECT * FROM playlists
+    </select>
+
+    <update id="update">
+        UPDATE playlists
+        SET name = #{name},
+        open = #{open},
+        user_id = #{userId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM playlists WHERE id = #{id}
+    </delete>
+
+    <select id="findByUserId" resultMap="playlistResultMap">
+        SELECT * FROM playlists WHERE user_id = #{userId}
+    </select>
+
+    <select id="findAllPublic" resultMap="playlistResultMap">
+        SELECT * FROM playlists WHERE open = 1
+    </select>
+</mapper>

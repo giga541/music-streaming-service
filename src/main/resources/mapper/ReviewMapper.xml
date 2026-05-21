@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.musicstreamingservice.persistence.ReviewRepository">
+
+    <resultMap id="reviewResultMap" type="Review">
+        <id property="id" column="id"/>
+        <result property="rating" column="rating"/>
+        <result property="comment" column="comment"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="songId" column="song_id"/>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reviews (rating, comment, created_at, song_id)
+        VALUES (#{rating}, #{comment}, #{createdAt}, #{songId})
+    </insert>
+
+    <select id="findById" resultMap="reviewResultMap">
+        SELECT * FROM reviews WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="reviewResultMap">
+        SELECT * FROM reviews
+    </select>
+
+    <update id="update">
+        UPDATE reviews
+        SET rating = #{rating},
+        comment = #{comment},
+        created_at = #{createdAt},
+        song_id = #{songId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM reviews WHERE id = #{id}
+    </delete>
+
+    <select id="findBySongId" resultMap="reviewResultMap">
+        SELECT * FROM reviews WHERE song_id = #{songId}
+    </select>
+
+    <select id="findByRatingGreaterThan" resultMap="reviewResultMap">
+        SELECT * FROM reviews WHERE rating > #{rating}
+    </select>
+</mapper>

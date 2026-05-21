@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.musicstreamingservice.persistence.SongRepository">
+
+    <resultMap id="songResultMap" type="Song">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="durationSeconds" column="duration_seconds"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="albumId" column="album_id"/>
+        <result property="genreId" column="genre_id"/>
+    </resultMap>
+
+    <resultMap id="songWithDetailsResultMap" type="Song">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="durationSeconds" column="duration_seconds"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="albumId" column="album_id"/>
+        <result property="genreId" column="genre_id"/>
+        <association property="album" javaType="Album">
+            <id property="id" column="album_id"/>
+            <result property="title" column="album_title"/>
+            <result property="releaseDate" column="album_release_date"/>
+        </association>
+        <association property="artist" javaType="Artist">
+            <id property="id" column="artist_id"/>
+            <result property="name" column="artist_name"/>
+            <result property="country" column="artist_country"/>
+        </association>
+        <association property="genre" javaType="Genre">
+            <id property="id" column="genre_id"/>
+            <result property="name" column="genre_name"/>
+            <result property="description" column="genre_description"/>
+        </association>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO songs (title, duration_seconds, release_date, album_id, genre_id)
+        VALUES (#{title}, #{durationSeconds}, #{releaseDate}, #{albumId}, #{genreId})
+    </insert>
+
+    <select id="findById" resultMap="songResultMap">
+        SELECT * FROM songs WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="songResultMap">
+        SELECT * FROM songs
+    </select>
+
+    <update id="update">
+        UPDATE songs
+        SET title = #{title},
+        duration_seconds = #{durationSeconds},
+        release_date = #{releaseDate},
+        album_id = #{albumId},
+        genre_id = #{genreId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM songs WHERE id = #{id}
+    </delete>
+
+    <select id="findByAlbumId" resultMap="songResultMap">
+        SELECT * FROM songs WHERE album_id = #{albumId}
+    </select>
+
+    <select id="findByGenreId" resultMap="songResultMap">
+        SELECT * FROM songs WHERE genre_id = #{genreId}
+    </select>
+
+    <select id="findAllWithDetails" resultMap="songWithDetailsResultMap">
+        SELECT
+        songs.id,
+        songs.title,
+        songs.duration_seconds,
+        songs.release_date,
+        songs.album_id,
+        songs.genre_id,
+        albums.title AS album_title,
+        albums.release_date AS album_release_date,
+        artists.id AS artist_id,
+        artists.name AS artist_name,
+        artists.country AS artist_country,
+        genres.name AS genre_name,
+        genres.description AS genre_description,
+        music_services.id AS service_id,
+        music_services.name AS service_name
+        FROM songs
+        JOIN albums ON albums.id = songs.album_id
+        JOIN artists ON artists.id = albums.artist_id
+        JOIN genres ON genres.id = songs.genre_id
+        JOIN music_services ON music_services.id = artists.music_service_id
+        LEFT JOIN reviews ON reviews.song_id = songs.id
+    </select>
+</mapper>

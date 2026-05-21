@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.musicstreamingservice.persistence.UserRepository">
+
+    <resultMap id="userResultMap" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="premium" column="premium"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="musicServiceId" column="music_service_id"/>
+    </resultMap>
+
+    <resultMap id="userWithDetailsResultMap" type="User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="premium" column="premium"/>
+        <result property="registrationDate" column="registration_date"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="musicServiceId" column="music_service_id"/>
+        <collection property="playlists" ofType="Playlist">
+            <id property="id" column="playlist_id"/>
+            <result property="name" column="playlist_name"/>
+            <result property="open" column="playlist_open"/>
+            <result property="userId" column="id"/>
+        </collection>
+        <collection property="subscriptions" ofType="Subscription">
+            <id property="id" column="subscription_id"/>
+            <result property="plan" column="plan"/>
+            <result property="pricePerMonth" column="price_per_month"/>
+            <result property="startDate" column="start_date"/>
+            <result property="endDate" column="end_date"/>
+            <result property="userId" column="id"/>
+        </collection>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, email, premium, registration_date, last_login, music_service_id)
+        VALUES (#{username}, #{email}, #{premium}, #{registrationDate}, #{lastLogin}, #{musicServiceId})
+    </insert>
+
+    <select id="findById" resultMap="userResultMap">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="userResultMap">
+        SELECT * FROM users
+    </select>
+
+    <update id="update">
+        UPDATE users
+        SET username = #{username},
+            email = #{email},
+            premium = #{premium},
+            registration_date = #{registrationDate},
+            last_login = #{lastLogin},
+            music_service_id = #{musicServiceId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+    <select id="findByEmail" resultMap="userResultMap">
+        SELECT * FROM users WHERE email = #{email}
+    </select>
+
+    <select id="findAllPremium" resultMap="userResultMap">
+        SELECT * FROM users WHERE premium = 1
+    </select>
+
+    <select id="findAllWithDetails" resultMap="userWithDetailsResultMap">
+        SELECT
+            users.id,
+            users.username,
+            users.email,
+            users.premium,
+            users.registration_date,
+            users.last_login,
+            users.music_service_id,
+            playlists.id AS playlist_id,
+            playlists.name AS playlist_name,
+            playlists.open AS playlist_open,
+            subscriptions.id AS subscription_id,
+            subscriptions.plan,
+            subscriptions.price_per_month,
+            subscriptions.start_date,
+            subscriptions.end_date
+        FROM users
+            JOIN music_services ON music_services.id = users.music_service_id
+            LEFT JOIN playlists ON playlists.user_id = users.id
+            LEFT JOIN subscriptions ON subscriptions.user_id = users.id
+            LEFT JOIN payment_methods ON payment_methods.user_id = users.id
+    </select>
+</mapper>

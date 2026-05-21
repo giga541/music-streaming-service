@@ -2,6 +2,7 @@ package com.solvd.musicstreamingservice.service.impl;
 
 import com.solvd.musicstreamingservice.model.Artist;
 import com.solvd.musicstreamingservice.persistence.ArtistRepository;
+import com.solvd.musicstreamingservice.persistence.impl.ArtistMapperImpl;
 import com.solvd.musicstreamingservice.persistence.impl.ArtistRepositoryImpl;
 import com.solvd.musicstreamingservice.service.ArtistService;
 
@@ -13,7 +14,7 @@ public class ArtistServiceImpl implements ArtistService {
     private final ArtistRepository artistRepository;
 
     public ArtistServiceImpl() {
-        this.artistRepository = new ArtistRepositoryImpl();
+        this.artistRepository = new ArtistMapperImpl();
     }
 
     @Override

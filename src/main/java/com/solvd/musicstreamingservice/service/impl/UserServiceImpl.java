@@ -2,6 +2,7 @@ package com.solvd.musicstreamingservice.service.impl;
 
 import com.solvd.musicstreamingservice.model.User;
 import com.solvd.musicstreamingservice.persistence.UserRepository;
+import com.solvd.musicstreamingservice.persistence.impl.UserMapperImpl;
 import com.solvd.musicstreamingservice.persistence.impl.UserRepositoryImpl;
 import com.solvd.musicstreamingservice.service.UserService;
 
@@ -13,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public UserServiceImpl() {
-        this.userRepository = new UserRepositoryImpl();
+        this.userRepository = new UserMapperImpl();
     }
 
     @Override

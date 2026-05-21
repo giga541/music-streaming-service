@@ -2,6 +2,7 @@ package com.solvd.musicstreamingservice.service.impl;
 
 import com.solvd.musicstreamingservice.model.Album;
 import com.solvd.musicstreamingservice.persistence.AlbumRepository;
+import com.solvd.musicstreamingservice.persistence.impl.AlbumMapperImpl;
 import com.solvd.musicstreamingservice.persistence.impl.AlbumRepositoryImpl;
 import com.solvd.musicstreamingservice.service.AlbumService;
 
@@ -13,7 +14,7 @@ public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepository albumRepository;
 
     public AlbumServiceImpl() {
-        this.albumRepository = new AlbumRepositoryImpl();
+        this.albumRepository = new AlbumMapperImpl();
     }
 
     @Override
