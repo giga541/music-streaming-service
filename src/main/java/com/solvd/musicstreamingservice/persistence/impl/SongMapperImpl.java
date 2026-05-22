@@ -13,7 +13,7 @@ public class SongMapperImpl implements SongRepository {
     @Override
     public Song create(Song song) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.insert("com.solvd.musicstreamingservice.persistence.SongRepository.create", song);
+            session.getMapper(SongRepository.class).create(song);
         }
         return song;
     }
@@ -21,22 +21,21 @@ public class SongMapperImpl implements SongRepository {
     @Override
     public Optional<Song> findById(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return Optional.ofNullable(session.selectOne(
-                    "com.solvd.musicstreamingservice.persistence.SongRepository.findById", id));
+            return session.getMapper(SongRepository.class).findById(id);
         }
     }
 
     @Override
     public List<Song> findAll() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList("com.solvd.musicstreamingservice.persistence.SongRepository.findAll");
+            return session.getMapper(SongRepository.class).findAll();
         }
     }
 
     @Override
     public Song update(Song song) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.update("com.solvd.musicstreamingservice.persistence.SongRepository.update", song);
+            session.getMapper(SongRepository.class).update(song);
         }
         return song;
     }
@@ -44,31 +43,28 @@ public class SongMapperImpl implements SongRepository {
     @Override
     public void delete(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.delete("com.solvd.musicstreamingservice.persistence.SongRepository.delete", id);
+            session.getMapper(SongRepository.class).delete(id);
         }
     }
 
     @Override
     public List<Song> findByAlbumId(Long albumId) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList(
-                    "com.solvd.musicstreamingservice.persistence.SongRepository.findByAlbumId", albumId);
+            return session.getMapper(SongRepository.class).findByAlbumId(albumId);
         }
     }
 
     @Override
     public List<Song> findByGenreId(Long genreId) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList(
-                    "com.solvd.musicstreamingservice.persistence.SongRepository.findByGenreId", genreId);
+            return session.getMapper(SongRepository.class).findByGenreId(genreId);
         }
     }
 
     @Override
     public List<Song> findAllWithDetails() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList(
-                    "com.solvd.musicstreamingservice.persistence.SongRepository.findAllWithDetails");
+            return session.getMapper(SongRepository.class).findAllWithDetails();
         }
     }
 }

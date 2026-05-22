@@ -13,7 +13,7 @@ public class ReviewMapperImpl implements ReviewRepository {
     @Override
     public Review create(Review review) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.insert("com.solvd.musicstreamingservice.persistence.ReviewRepository.create", review);
+            session.getMapper(ReviewRepository.class).create(review);
         }
         return review;
     }
@@ -21,22 +21,21 @@ public class ReviewMapperImpl implements ReviewRepository {
     @Override
     public Optional<Review> findById(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return Optional.ofNullable(session.selectOne(
-                    "com.solvd.musicstreamingservice.persistence.ReviewRepository.findById", id));
+            return session.getMapper(ReviewRepository.class).findById(id);
         }
     }
 
     @Override
     public List<Review> findAll() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList("com.solvd.musicstreamingservice.persistence.ReviewRepository.findAll");
+            return session.getMapper(ReviewRepository.class).findAll();
         }
     }
 
     @Override
     public Review update(Review review) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.update("com.solvd.musicstreamingservice.persistence.ReviewRepository.update", review);
+            session.getMapper(ReviewRepository.class).update(review);
         }
         return review;
     }
@@ -44,23 +43,21 @@ public class ReviewMapperImpl implements ReviewRepository {
     @Override
     public void delete(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.delete("com.solvd.musicstreamingservice.persistence.ReviewRepository.delete", id);
+            session.getMapper(ReviewRepository.class).delete(id);
         }
     }
 
     @Override
     public List<Review> findBySongId(Long songId) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList(
-                    "com.solvd.musicstreamingservice.persistence.ReviewRepository.findBySongId", songId);
+            return session.getMapper(ReviewRepository.class).findBySongId(songId);
         }
     }
 
     @Override
     public List<Review> findByRatingGreaterThan(int rating) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList(
-                    "com.solvd.musicstreamingservice.persistence.ReviewRepository.findByRatingGreaterThan", rating);
+            return session.getMapper(ReviewRepository.class).findByRatingGreaterThan(rating);
         }
     }
 }

@@ -13,7 +13,7 @@ public class UserMapperImpl implements UserRepository {
     @Override
     public User create(User user) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.insert("com.solvd.musicstreamingservice.persistence.UserRepository.create", user);
+            session.getMapper(UserRepository.class).create(user);
         }
         return user;
     }
@@ -21,22 +21,21 @@ public class UserMapperImpl implements UserRepository {
     @Override
     public Optional<User> findById(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return Optional.ofNullable(session.selectOne(
-                    "com.solvd.musicstreamingservice.persistence.UserRepository.findById", id));
+            return session.getMapper(UserRepository.class).findById(id);
         }
     }
 
     @Override
     public List<User> findAll() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList("com.solvd.musicstreamingservice.persistence.UserRepository.findAll");
+            return session.getMapper(UserRepository.class).findAll();
         }
     }
 
     @Override
     public User update(User user) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.update("com.solvd.musicstreamingservice.persistence.UserRepository.update", user);
+            session.getMapper(UserRepository.class).update(user);
         }
         return user;
     }
@@ -44,29 +43,28 @@ public class UserMapperImpl implements UserRepository {
     @Override
     public void delete(Long id) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.delete("com.solvd.musicstreamingservice.persistence.UserRepository.delete", id);
+            session.getMapper(UserRepository.class).delete(id);
         }
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return Optional.ofNullable(session.selectOne(
-                    "com.solvd.musicstreamingservice.persistence.UserRepository.findByEmail", email));
+            return session.getMapper(UserRepository.class).findByEmail(email);
         }
     }
 
     @Override
     public List<User> findAllPremium() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList("com.solvd.musicstreamingservice.persistence.UserRepository.findAllPremium");
+            return session.getMapper(UserRepository.class).findAllPremium();
         }
     }
 
     @Override
     public List<User> findAllWithDetails() {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
-            return session.selectList("com.solvd.musicstreamingservice.persistence.UserRepository.findAllWithDetails");
+            return session.getMapper(UserRepository.class).findAllWithDetails();
         }
     }
 }
