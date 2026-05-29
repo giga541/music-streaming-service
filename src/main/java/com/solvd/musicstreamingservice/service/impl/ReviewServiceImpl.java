@@ -13,8 +13,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public ReviewServiceImpl() {
-        this.reviewRepository = new ReviewMapperImpl();
+    public ReviewServiceImpl(RepositoryFactory factory) {
+        this.reviewRepository = factory.createReviewRepository();
     }
 
     @Override

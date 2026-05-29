@@ -13,8 +13,8 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     private final PlaylistRepository playlistRepository;
 
-    public PlaylistServiceImpl() {
-        this.playlistRepository = new PlaylistMapperImpl();
+    public PlaylistServiceImpl(RepositoryFactory factory) {
+        this.playlistRepository = factory.createPlaylistRepository();
     }
 
     @Override

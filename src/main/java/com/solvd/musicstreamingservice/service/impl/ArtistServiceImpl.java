@@ -13,8 +13,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     private final ArtistRepository artistRepository;
 
-    public ArtistServiceImpl() {
-        this.artistRepository = new ArtistMapperImpl();
+    public ArtistServiceImpl(RepositoryFactory factory) {
+        this.artistRepository = factory.createArtistRepository();
     }
 
     @Override

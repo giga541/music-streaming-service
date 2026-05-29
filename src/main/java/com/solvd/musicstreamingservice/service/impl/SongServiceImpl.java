@@ -13,8 +13,8 @@ public class SongServiceImpl implements SongService {
 
     private final SongRepository songRepository;
 
-    public SongServiceImpl() {
-        this.songRepository = new SongMapperImpl();
+    public SongServiceImpl(RepositoryFactory factory) {
+        this.songRepository = factory.createSongRepository();
     }
 
     @Override

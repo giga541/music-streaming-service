@@ -13,8 +13,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository albumRepository;
 
-    public AlbumServiceImpl() {
-        this.albumRepository = new AlbumMapperImpl();
+    public AlbumServiceImpl(RepositoryFactory factory) {
+        this.albumRepository = factory.createAlbumRepository();
     }
 
     @Override
