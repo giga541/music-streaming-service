@@ -104,4 +104,48 @@ public class Song {
     public void setStreamHistories(List<StreamHistory> streamHistories) {
         this.streamHistories = streamHistories;
     }
+
+    public static class Builder {
+
+        private String title;
+        private double durationSeconds;
+        private LocalDate releaseDate;
+        private Long albumId;
+        private Long genreId;
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder durationSeconds(double durationSeconds) {
+            this.durationSeconds = durationSeconds;
+            return this;
+        }
+
+        public Builder releaseDate(LocalDate releaseDate) {
+            this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public Builder albumId(Long albumId) {
+            this.albumId = albumId;
+            return this;
+        }
+
+        public Builder genreId(Long genreId) {
+            this.genreId = genreId;
+            return this;
+        }
+
+        public Song build() {
+            Song song = new Song();
+            song.setTitle(title);
+            song.setDurationSeconds(durationSeconds);
+            song.setReleaseDate(releaseDate);
+            song.setAlbumId(albumId);
+            song.setGenreId(genreId);
+            return song;
+        }
+    }
 }
