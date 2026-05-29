@@ -1,5 +1,6 @@
 package com.solvd.musicstreamingservice.service.impl;
 
+import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Artist;
 import com.solvd.musicstreamingservice.persistence.ArtistRepository;
 import com.solvd.musicstreamingservice.persistence.impl.ArtistMapperImpl;

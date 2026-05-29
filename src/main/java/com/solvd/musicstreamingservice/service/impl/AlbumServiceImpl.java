@@ -1,5 +1,6 @@
 package com.solvd.musicstreamingservice.service.impl;
 
+import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Album;
 import com.solvd.musicstreamingservice.persistence.AlbumRepository;
 import com.solvd.musicstreamingservice.persistence.impl.AlbumMapperImpl;
