@@ -3,8 +3,6 @@ package com.solvd.musicstreamingservice.service.impl;
 import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Song;
 import com.solvd.musicstreamingservice.persistence.SongRepository;
-import com.solvd.musicstreamingservice.persistence.impl.SongMapperImpl;
-import com.solvd.musicstreamingservice.persistence.impl.SongRepositoryImpl;
 import com.solvd.musicstreamingservice.service.SongService;
 
 import java.util.List;
@@ -23,7 +21,8 @@ public class SongServiceImpl implements SongService {
         if (song.getTitle() == null || song.getTitle().isBlank()) {
             throw new IllegalArgumentException("Song title cannot be empty.");
         }
-        return songRepository.create(song);
+        songRepository.create(song);
+        return song;
     }
 
     @Override
@@ -38,7 +37,8 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song update(Song song) {
-        return songRepository.update(song);
+        songRepository.update(song);
+        return song;
     }
 
     @Override

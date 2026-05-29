@@ -3,8 +3,6 @@ package com.solvd.musicstreamingservice.service.impl;
 import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Review;
 import com.solvd.musicstreamingservice.persistence.ReviewRepository;
-import com.solvd.musicstreamingservice.persistence.impl.ReviewMapperImpl;
-import com.solvd.musicstreamingservice.persistence.impl.ReviewRepositoryImpl;
 import com.solvd.musicstreamingservice.service.ReviewService;
 
 import java.util.List;
@@ -23,7 +21,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (review.getRating() < 1 || review.getRating() > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5.");
         }
-        return reviewRepository.create(review);
+        reviewRepository.create(review);
+        return review;
     }
 
     @Override
@@ -38,7 +37,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(Review review) {
-        return reviewRepository.update(review);
+        reviewRepository.update(review);
+        return review;
     }
 
     @Override

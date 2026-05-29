@@ -1,19 +1,18 @@
 package com.solvd.musicstreamingservice.persistence;
 
 import com.solvd.musicstreamingservice.model.Artist;
-
 import java.util.List;
 import java.util.Optional;
 
 public interface ArtistRepository {
 
-    Artist create(Artist artist);
+    void create(Artist artist);
 
     Optional<Artist> findById(Long id);
 
     List<Artist> findAll();
 
-    Artist update(Artist artist);
+    void update(Artist artist);
 
     void delete(Long id);
 

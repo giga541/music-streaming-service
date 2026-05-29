@@ -13,22 +13,29 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
-    private static final String CREATE_QUERY = "INSERT INTO playlists (name, open, user_id) VALUES (?, ?, ?)";
+    private static final String CREATE_QUERY =
+            "INSERT INTO playlists (name, open, user_id) VALUES (?, ?, ?)";
 
-    private static final String FIND_BY_ID_QUERY = "SELECT * FROM playlists WHERE id = ?";
+    private static final String FIND_BY_ID_QUERY =
+            "SELECT * FROM playlists WHERE id = ?";
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM playlists";
+    private static final String FIND_ALL_QUERY =
+            "SELECT * FROM playlists";
 
-    private static final String UPDATE_QUERY = "UPDATE playlists SET name = ?, open = ?, user_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY =
+            "UPDATE playlists SET name = ?, open = ?, user_id = ? WHERE id = ?";
 
-    private static final String DELETE_QUERY = "DELETE FROM playlists WHERE id = ?";
+    private static final String DELETE_QUERY =
+            "DELETE FROM playlists WHERE id = ?";
 
-    private static final String FIND_BY_USER_ID_QUERY = "SELECT * FROM playlists WHERE user_id = ?";
+    private static final String FIND_BY_USER_ID_QUERY =
+            "SELECT * FROM playlists WHERE user_id = ?";
 
-    private static final String FIND_ALL_PUBLIC_QUERY = "SELECT * FROM playlists WHERE open = 1";
+    private static final String FIND_ALL_PUBLIC_QUERY =
+            "SELECT * FROM playlists WHERE open = 1";
 
     @Override
-    public Playlist create(Playlist playlist) {
+    public void create(Playlist playlist) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, playlist.getName());
@@ -44,7 +51,6 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return playlist;
     }
 
     @Override
@@ -80,7 +86,7 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
     }
 
     @Override
-    public Playlist update(Playlist playlist) {
+    public void update(Playlist playlist) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, playlist.getName());
@@ -93,7 +99,6 @@ public class PlaylistRepositoryImpl implements PlaylistRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return playlist;
     }
 
     @Override

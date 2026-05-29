@@ -13,22 +13,29 @@ public class ArtistRepositoryImpl implements ArtistRepository {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
-    private static final String CREATE_QUERY = "INSERT INTO artists (name, country, music_service_id) VALUES (?, ?, ?)";
+    private static final String CREATE_QUERY =
+            "INSERT INTO artists (name, country, music_service_id) VALUES (?, ?, ?)";
 
-    private static final String FIND_BY_ID_QUERY = "SELECT * FROM artists WHERE id = ?";
+    private static final String FIND_BY_ID_QUERY =
+            "SELECT * FROM artists WHERE id = ?";
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM artists";
+    private static final String FIND_ALL_QUERY =
+            "SELECT * FROM artists";
 
-    private static final String UPDATE_QUERY = "UPDATE artists SET name = ?, country = ?, music_service_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY =
+            "UPDATE artists SET name = ?, country = ?, music_service_id = ? WHERE id = ?";
 
-    private static final String DELETE_QUERY = "DELETE FROM artists WHERE id = ?";
+    private static final String DELETE_QUERY =
+            "DELETE FROM artists WHERE id = ?";
 
-    private static final String FIND_BY_MUSIC_SERVICE_ID_QUERY = "SELECT * FROM artists WHERE music_service_id = ?";
+    private static final String FIND_BY_MUSIC_SERVICE_ID_QUERY =
+            "SELECT * FROM artists WHERE music_service_id = ?";
 
-    private static final String FIND_BY_COUNTRY_QUERY = "SELECT * FROM artists WHERE country = ?";
+    private static final String FIND_BY_COUNTRY_QUERY =
+            "SELECT * FROM artists WHERE country = ?";
 
     @Override
-    public Artist create(Artist artist) {
+    public void create(Artist artist) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, artist.getName());
@@ -44,7 +51,6 @@ public class ArtistRepositoryImpl implements ArtistRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return artist;
     }
 
     @Override
@@ -80,7 +86,7 @@ public class ArtistRepositoryImpl implements ArtistRepository {
     }
 
     @Override
-    public Artist update(Artist artist) {
+    public void update(Artist artist) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, artist.getName());
@@ -93,7 +99,6 @@ public class ArtistRepositoryImpl implements ArtistRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return artist;
     }
 
     @Override

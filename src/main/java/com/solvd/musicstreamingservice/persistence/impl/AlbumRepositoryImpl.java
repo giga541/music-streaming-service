@@ -13,20 +13,26 @@ public class AlbumRepositoryImpl implements AlbumRepository {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
-    private static final String CREATE_QUERY = "INSERT INTO albums (title, release_date, artist_id) VALUES (?, ?, ?)";
+    private static final String CREATE_QUERY =
+            "INSERT INTO albums (title, release_date, artist_id) VALUES (?, ?, ?)";
 
-    private static final String FIND_BY_ID_QUERY = "SELECT * FROM albums WHERE id = ?";
+    private static final String FIND_BY_ID_QUERY =
+            "SELECT * FROM albums WHERE id = ?";
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM albums";
+    private static final String FIND_ALL_QUERY =
+            "SELECT * FROM albums";
 
-    private static final String UPDATE_QUERY = "UPDATE albums SET title = ?, release_date = ?, artist_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY =
+            "UPDATE albums SET title = ?, release_date = ?, artist_id = ? WHERE id = ?";
 
-    private static final String DELETE_QUERY = "DELETE FROM albums WHERE id = ?";
+    private static final String DELETE_QUERY =
+            "DELETE FROM albums WHERE id = ?";
 
-    private static final String FIND_BY_ARTIST_ID_QUERY = "SELECT * FROM albums WHERE artist_id = ?";
+    private static final String FIND_BY_ARTIST_ID_QUERY =
+            "SELECT * FROM albums WHERE artist_id = ?";
 
     @Override
-    public Album create(Album album) {
+    public void create(Album album) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, album.getTitle());
@@ -42,7 +48,6 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return album;
     }
 
     @Override
@@ -78,7 +83,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     }
 
     @Override
-    public Album update(Album album) {
+    public void update(Album album) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, album.getTitle());
@@ -91,7 +96,6 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return album;
     }
 
     @Override

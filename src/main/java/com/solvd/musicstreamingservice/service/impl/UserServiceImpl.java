@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists.");
         }
-        return userRepository.create(user);
+        userRepository.create(user);
+        return user;
     }
 
     @Override
@@ -39,7 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        return userRepository.update(user);
+        userRepository.update(user);
+        return user;
     }
 
     @Override

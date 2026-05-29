@@ -11,11 +11,17 @@ import java.util.Optional;
 public class ArtistMapperImpl implements ArtistRepository {
 
     @Override
-    public Artist create(Artist artist) {
+    public void create(Artist artist) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(ArtistRepository.class).create(artist);
         }
-        return artist;
+    }
+
+    @Override
+    public void update(Artist artist) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(ArtistRepository.class).update(artist);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class ArtistMapperImpl implements ArtistRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(ArtistRepository.class).findAll();
         }
-    }
-
-    @Override
-    public Artist update(Artist artist) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(ArtistRepository.class).update(artist);
-        }
-        return artist;
     }
 
     @Override

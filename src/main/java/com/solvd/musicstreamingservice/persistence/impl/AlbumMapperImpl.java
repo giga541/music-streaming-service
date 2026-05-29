@@ -11,11 +11,17 @@ import java.util.Optional;
 public class AlbumMapperImpl implements AlbumRepository {
 
     @Override
-    public Album create(Album album) {
+    public void create(Album album) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(AlbumRepository.class).create(album);
         }
-        return album;
+    }
+
+    @Override
+    public void update(Album album) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(AlbumRepository.class).update(album);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class AlbumMapperImpl implements AlbumRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(AlbumRepository.class).findAll();
         }
-    }
-
-    @Override
-    public Album update(Album album) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(AlbumRepository.class).update(album);
-        }
-        return album;
     }
 
     @Override

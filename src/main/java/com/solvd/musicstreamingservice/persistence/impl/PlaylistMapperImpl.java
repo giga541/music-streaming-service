@@ -11,11 +11,17 @@ import java.util.Optional;
 public class PlaylistMapperImpl implements PlaylistRepository {
 
     @Override
-    public Playlist create(Playlist playlist) {
+    public void create(Playlist playlist) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(PlaylistRepository.class).create(playlist);
         }
-        return playlist;
+    }
+
+    @Override
+    public void update(Playlist playlist) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(PlaylistRepository.class).update(playlist);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class PlaylistMapperImpl implements PlaylistRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(PlaylistRepository.class).findAll();
         }
-    }
-
-    @Override
-    public Playlist update(Playlist playlist) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(PlaylistRepository.class).update(playlist);
-        }
-        return playlist;
     }
 
     @Override

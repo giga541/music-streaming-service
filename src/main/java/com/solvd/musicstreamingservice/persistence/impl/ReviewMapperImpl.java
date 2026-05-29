@@ -11,11 +11,17 @@ import java.util.Optional;
 public class ReviewMapperImpl implements ReviewRepository {
 
     @Override
-    public Review create(Review review) {
+    public void create(Review review) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(ReviewRepository.class).create(review);
         }
-        return review;
+    }
+
+    @Override
+    public void update(Review review) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(ReviewRepository.class).update(review);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class ReviewMapperImpl implements ReviewRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(ReviewRepository.class).findAll();
         }
-    }
-
-    @Override
-    public Review update(Review review) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(ReviewRepository.class).update(review);
-        }
-        return review;
     }
 
     @Override

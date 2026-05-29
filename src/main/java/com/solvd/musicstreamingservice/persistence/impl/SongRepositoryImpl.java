@@ -1,9 +1,6 @@
 package com.solvd.musicstreamingservice.persistence.impl;
 
-import com.solvd.musicstreamingservice.model.Album;
-import com.solvd.musicstreamingservice.model.Artist;
-import com.solvd.musicstreamingservice.model.Genre;
-import com.solvd.musicstreamingservice.model.Song;
+import com.solvd.musicstreamingservice.model.*;
 import com.solvd.musicstreamingservice.persistence.SongRepository;
 import com.solvd.musicstreamingservice.util.ConnectionPool;
 
@@ -16,24 +13,42 @@ public class SongRepositoryImpl implements SongRepository {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
-    private static final String CREATE_QUERY = "INSERT INTO songs (title, duration_seconds, release_date, album_id, genre_id) " + "VALUES (?, ?, ?, ?, ?)";
+    private static final String CREATE_QUERY =
+            "INSERT INTO songs (title, duration_seconds, release_date, album_id, genre_id) VALUES (?, ?, ?, ?, ?)";
 
-    private static final String FIND_BY_ID_QUERY = "SELECT * FROM songs WHERE id = ?";
+    private static final String FIND_BY_ID_QUERY =
+            "SELECT * FROM songs WHERE id = ?";
 
-    private static final String FIND_ALL_QUERY = "SELECT * FROM songs";
+    private static final String FIND_ALL_QUERY =
+            "SELECT * FROM songs";
 
-    private static final String UPDATE_QUERY = "UPDATE songs SET title = ?, duration_seconds = ?, release_date = ?, album_id = ?, genre_id = ? WHERE id = ?";
+    private static final String UPDATE_QUERY =
+            "UPDATE songs SET title = ?, duration_seconds = ?, release_date = ?, album_id = ?, genre_id = ? WHERE id = ?";
 
-    private static final String DELETE_QUERY = "DELETE FROM songs WHERE id = ?";
+    private static final String DELETE_QUERY =
+            "DELETE FROM songs WHERE id = ?";
 
-    private static final String FIND_BY_ALBUM_ID_QUERY = "SELECT * FROM songs WHERE album_id = ?";
+    private static final String FIND_BY_ALBUM_ID_QUERY =
+            "SELECT * FROM songs WHERE album_id = ?";
 
-    private static final String FIND_BY_GENRE_ID_QUERY = "SELECT * FROM songs WHERE genre_id = ?";
+    private static final String FIND_BY_GENRE_ID_QUERY =
+            "SELECT * FROM songs WHERE genre_id = ?";
 
-    private static final String FIND_ALL_WITH_DETAILS_QUERY = "SELECT songs.id, songs.title, songs.duration_seconds, songs.release_date, songs.album_id, songs.genre_id, " + "albums.title AS album_title, albums.release_date AS album_release_date, " + "artists.id AS artist_id, artists.name AS artist_name, artists.country AS artist_country, " + "genres.id AS genre_id_col, genres.name AS genre_name, genres.description AS genre_description, " + "music_services.id AS service_id, music_services.name AS service_name " + "FROM songs " + "JOIN albums ON albums.id = songs.album_id " + "JOIN artists ON artists.id = albums.artist_id " + "JOIN genres ON genres.id = songs.genre_id " + "JOIN music_services ON music_services.id = artists.music_service_id " + "LEFT JOIN reviews ON reviews.song_id = songs.id";
+    private static final String FIND_ALL_WITH_DETAILS_QUERY =
+            "SELECT songs.id, songs.title, songs.duration_seconds, songs.release_date, songs.album_id, songs.genre_id, " +
+                    "albums.title AS album_title, albums.release_date AS album_release_date, " +
+                    "artists.id AS artist_id, artists.name AS artist_name, artists.country AS artist_country, " +
+                    "genres.id AS genre_id_col, genres.name AS genre_name, genres.description AS genre_description, " +
+                    "music_services.id AS service_id, music_services.name AS service_name " +
+                    "FROM songs " +
+                    "JOIN albums ON albums.id = songs.album_id " +
+                    "JOIN artists ON artists.id = albums.artist_id " +
+                    "JOIN genres ON genres.id = songs.genre_id " +
+                    "JOIN music_services ON music_services.id = artists.music_service_id " +
+                    "LEFT JOIN reviews ON reviews.song_id = songs.id";
 
     @Override
-    public Song create(Song song) {
+    public void create(Song song) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, song.getTitle());
@@ -51,7 +66,6 @@ public class SongRepositoryImpl implements SongRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return song;
     }
 
     @Override
@@ -87,7 +101,7 @@ public class SongRepositoryImpl implements SongRepository {
     }
 
     @Override
-    public Song update(Song song) {
+    public void update(Song song) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setString(1, song.getTitle());
@@ -102,7 +116,6 @@ public class SongRepositoryImpl implements SongRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return song;
     }
 
     @Override

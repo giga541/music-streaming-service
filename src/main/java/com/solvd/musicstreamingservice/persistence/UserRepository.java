@@ -7,13 +7,13 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    User create(User user);
+    void create(User user);
 
     Optional<User> findById(Long id);
 
     List<User> findAll();
 
-    User update(User user);
+    void update(User user);
 
     void delete(Long id);
 

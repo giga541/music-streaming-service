@@ -3,8 +3,6 @@ package com.solvd.musicstreamingservice.service.impl;
 import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Playlist;
 import com.solvd.musicstreamingservice.persistence.PlaylistRepository;
-import com.solvd.musicstreamingservice.persistence.impl.PlaylistMapperImpl;
-import com.solvd.musicstreamingservice.persistence.impl.PlaylistRepositoryImpl;
 import com.solvd.musicstreamingservice.service.PlaylistService;
 
 import java.util.List;
@@ -23,7 +21,8 @@ public class PlaylistServiceImpl implements PlaylistService {
         if (playlist.getName() == null || playlist.getName().isBlank()) {
             throw new IllegalArgumentException("Playlist name cannot be empty.");
         }
-        return playlistRepository.create(playlist);
+        playlistRepository.create(playlist);
+        return playlist;
     }
 
     @Override
@@ -38,7 +37,8 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public Playlist update(Playlist playlist) {
-        return playlistRepository.update(playlist);
+        playlistRepository.update(playlist);
+        return playlist;
     }
 
     @Override

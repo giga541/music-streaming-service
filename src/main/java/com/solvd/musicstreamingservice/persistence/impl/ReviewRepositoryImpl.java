@@ -35,7 +35,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
             "SELECT * FROM reviews WHERE rating > ?";
 
     @Override
-    public Review create(Review review) {
+    public void create(Review review) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, review.getRating());
@@ -52,7 +52,6 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return review;
     }
 
     @Override
@@ -88,7 +87,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
-    public Review update(Review review) {
+    public void update(Review review) {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
             preparedStatement.setInt(1, review.getRating());
@@ -102,7 +101,6 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return review;
     }
 
     @Override

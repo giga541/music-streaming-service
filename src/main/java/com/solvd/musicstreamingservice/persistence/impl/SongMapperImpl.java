@@ -11,11 +11,17 @@ import java.util.Optional;
 public class SongMapperImpl implements SongRepository {
 
     @Override
-    public Song create(Song song) {
+    public void create(Song song) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(SongRepository.class).create(song);
         }
-        return song;
+    }
+
+    @Override
+    public void update(Song song) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(SongRepository.class).update(song);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class SongMapperImpl implements SongRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(SongRepository.class).findAll();
         }
-    }
-
-    @Override
-    public Song update(Song song) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(SongRepository.class).update(song);
-        }
-        return song;
     }
 
     @Override

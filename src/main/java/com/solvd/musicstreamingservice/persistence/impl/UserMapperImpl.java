@@ -11,11 +11,17 @@ import java.util.Optional;
 public class UserMapperImpl implements UserRepository {
 
     @Override
-    public User create(User user) {
+    public void create(User user) {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
             session.getMapper(UserRepository.class).create(user);
         }
-        return user;
+    }
+
+    @Override
+    public void update(User user) {
+        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
+            session.getMapper(UserRepository.class).update(user);
+        }
     }
 
     @Override
@@ -30,14 +36,6 @@ public class UserMapperImpl implements UserRepository {
         try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession()) {
             return session.getMapper(UserRepository.class).findAll();
         }
-    }
-
-    @Override
-    public User update(User user) {
-        try (SqlSession session = MyBatisSessionHolder.getSessionFactory().openSession(true)) {
-            session.getMapper(UserRepository.class).update(user);
-        }
-        return user;
     }
 
     @Override

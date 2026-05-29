@@ -32,7 +32,7 @@ public class Main {
         // Builder — build User object step by step
         User user = new User.Builder()
                 .username("test_user")
-                .email("solvdt@email.com")
+                .email("solvdd@email.com")
                 .premium(true)
                 .registrationDate(LocalDate.now())
                 .lastLogin(LocalDateTime.now())

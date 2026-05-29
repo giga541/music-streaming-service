@@ -13,11 +13,10 @@ public class LoggingUserRepository extends UserRepositoryDecorator {
     }
 
     @Override
-    public User create(User user) {
+    public void create(User user) {
         System.out.println("Creating user: " + user.getUsername());
-        User created = userRepository.create(user);
-        System.out.println("Created user with id: " + created.getId());
-        return created;
+        userRepository.create(user);
+        System.out.println("Created user with id: " + user.getId());
     }
 
     @Override
@@ -33,9 +32,9 @@ public class LoggingUserRepository extends UserRepositoryDecorator {
     }
 
     @Override
-    public User update(User user) {
+    public void update(User user) {
         System.out.println("Updating user: " + user.getId());
-        return userRepository.update(user);
+        userRepository.update(user);
     }
 
     @Override

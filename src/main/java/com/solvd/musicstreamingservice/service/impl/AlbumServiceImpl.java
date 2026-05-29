@@ -3,8 +3,6 @@ package com.solvd.musicstreamingservice.service.impl;
 import com.solvd.musicstreamingservice.factory.RepositoryFactory;
 import com.solvd.musicstreamingservice.model.Album;
 import com.solvd.musicstreamingservice.persistence.AlbumRepository;
-import com.solvd.musicstreamingservice.persistence.impl.AlbumMapperImpl;
-import com.solvd.musicstreamingservice.persistence.impl.AlbumRepositoryImpl;
 import com.solvd.musicstreamingservice.service.AlbumService;
 
 import java.util.List;
@@ -23,7 +21,8 @@ public class AlbumServiceImpl implements AlbumService {
         if (album.getTitle() == null || album.getTitle().isBlank()) {
             throw new IllegalArgumentException("Album title cannot be empty.");
         }
-        return albumRepository.create(album);
+        albumRepository.create(album);
+        return album;
     }
 
     @Override
@@ -38,7 +37,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album update(Album album) {
-        return albumRepository.update(album);
+        albumRepository.update(album);
+        return album;
     }
 
     @Override
