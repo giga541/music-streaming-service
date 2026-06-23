@@ -41,8 +41,8 @@
                 <version>3.2.5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng-suite1.xml</suiteXmlFile>
-                        <suiteXmlFile>src/test/resources/testng-suite2.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng_suites/test-suite1.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng_suites/test-suite2.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
