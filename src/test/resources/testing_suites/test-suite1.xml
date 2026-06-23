@@ -6,12 +6,13 @@
     </listeners>
     <test name="User Service Tests">
         <classes>
-            <class name="com.solvd.musicstreamingservice.test.UserServiceTest"/>
-        </classes>
-    </test>
-    <test name="Artist Service Tests">
-        <classes>
             <class name="com.solvd.musicstreamingservice.test.ArtistServiceTest"/>
+            <class name="com.solvd.musicstreamingservice.test.UserServiceTest">
+                <methods>
+                    <include name="beforeSuite"/>
+                    <include name="beforeClass"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

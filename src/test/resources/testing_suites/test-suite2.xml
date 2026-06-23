@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite2 - Music and Review Tests">
+    <listeners>
+        <listener class-name="com.solvd.musicstreamingservice.listener.TestNGListener"/>
+    </listeners>
+    <test name="Album Service Tests">
+        <classes>
+            <class name="com.solvd.musicstreamingservice.test.AlbumServiceTest"/>
+        </classes>
+    </test>
+    <test name="Playlist Service Tests">
+        <classes>
+            <class name="com.solvd.musicstreamingservice.test.PlaylistServiceTest"/>
+        </classes>
+    </test>
+    <test name="Review Service Tests">
+        <classes>
+            <class name="com.solvd.musicstreamingservice.test.ReviewServiceTest"/>
+        </classes>
+    </test>
+</suite>
